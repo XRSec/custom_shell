@@ -1,0 +1,41 @@
+# This is the network config written by 'subiquity'
+network:
+  ethernets:
+    enp2s0:
+      dhcp4: false # 禁用DHCPv4
+      dhcp6: false # 禁用DHCPv6
+      optional: true # 设置为非必须，防止Ubuntu的网络检查造成系统启动延迟
+    enp3s0:
+      dhcp4: false # 禁用DHCPv4
+      dhcp6: false # 禁用DHCPv6
+      optional: true # 设置为非必须，防止Ubuntu的网络检查造成系统启动延迟
+    enp4s0:
+      dhcp4: false # 禁用DHCPv4
+      dhcp6: false # 禁用DHCPv6
+      optional: true # 设置为非必须，防止Ubuntu的网络检查造成系统启动延迟
+    enp5s0:
+      dhcp4: true # 启用DHCPv4
+      dhcp6: true # 启用DHCPv6
+      optional: true # 设置为非必须，防止Ubuntu的网络检查造成系统启动延迟
+      accept-ra: true # 接受Router Advertisement，IPv6适配相关的配置
+  bridges:
+    br_lan: # 将网卡enp1s0和网卡enp2s0组成网桥，网桥名称为br_lan
+      interfaces: # 包含的所有网卡名称
+        - "enp2s0"
+        - "enp3s0"
+      addresses: # 固定网卡所拥有的内网IP地址段
+        - 192.168.1.1/24
+        - fc00:192:168:1::1/64
+      dhcp4: false # 禁用DHCPv4
+      dhcp6: false # 禁用DHCPv6
+      nameservers: # 设置默认DNS服务器，非必须
+        addresses:
+          - 8.8.8.8
+          - 114.114.114.114
+          - "2400:3200::1"
+      parameters:
+        stp: true # 启用生成树协议，防止环路
+        forward-delay: 4
+      optional: true # 设置为非必须，防止Ubuntu的网络检查造成系统启动延迟
+
+  version: 2
